@@ -1,0 +1,52 @@
+openapi: 3.0.3
+info:
+  title: sample-api
+  description: サンプルAPI
+  version: 1.0.0
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    email: support@sample.com
+tags:
+  - name: sample
+    description: サンプル
+servers:
+  - url: localhost:8080
+    description: local server
+  - url: localhost:4010
+    description: mock server
+paths:
+  /sample:
+    get:
+      summary: get-sample
+      description: サンプルエンドポイント
+      operationId: get-sample
+      tags:
+        - sample
+      responses:
+        "200":
+          $ref: "#/components/responses/sample200Response"
+components:
+  schemas:
+    Sample:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+        - text
+  responses:
+    sample200Response:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Sample"
+          examples:
+            example-1:
+              $ref: "#/components/examples/sampleExample"
+  examples:
+    sampleExample:
+      value:
+        text: sample

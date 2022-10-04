@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/:/app:cached
+      # - ./frontend/node_modules:/app/node_modules
+    tty: true
+    ports:
+      - "5173:5173"
+    command: yarn dev
+  mock-api:
+    image: stoplight/prism:4
+    ports:
+      - "4010:4010"
+    command: mock -h 0.0.0.0 /tmp/openapi.yaml
+    volumes:
+      - ./api:/tmp
+# volumes:
+#   node_modules:
